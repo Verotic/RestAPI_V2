@@ -36,39 +36,28 @@ namespace WebApplication2.Repositories
             return result > 0;
         }
 
+
+        public async Task<IEnumerable<Player>> GetPlayers()
+        {
+            var db = dbConnect();
+
+            var sql = @"SELECT * FROM player";
+
+            return await db.QueryAsync<Player>(sql, new { });
+        }
         public async Task<Player> GetPlayer(int id)
         {
             var db = dbConnect();
-            var sql = @"SELECT * FROM player";
-            return await db.QueryFirstAsync<Player>(sql, new { id });
 
+            var sql = @"SELEC * FROM player WHERE id = @id";
+
+            return await db.QueryFirstAsync<Player>(sql, new { id });
         }
         public async Task<bool> UpdatePlayer (Player player)
         {
             var db = dbConnect();
             var sql = @"UPDATE player SET name = @name, age = @age = WHERE id = @id";
             var result = await db.ExecuteAsync(sql, new { });
-            return result > 0;
-        }
-
-        public Task<IEnumerable<Player>> GetPlayers()
-
-
-
-
-
-
-
-
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task<bool> updatePlayer(Player player)
-        {
-            var db = dbConnect();
-            var sql = @"UPDATE player SET name = @name, age = @age WHERE id = @id";
-            var result = await db.ExecuteAsync(sql, new { player.Name, player.Age, player.Id });
             return result > 0;
         }
     }
