@@ -19,6 +19,7 @@ namespace WebApplication2.Controller
         {
             return Ok(await _playerRepository.GetPlayers());
         }
+        [HttpDelete("{}")]
         [HttpGet("{id}")]
         public async Task<IActionResult> getPlayer(int id)
         {
